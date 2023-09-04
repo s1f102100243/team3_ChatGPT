@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSVデータの表示</title>
+    <script>
+        function displayData() {
+            var fileInput = document.createElement("input");
+            fileInput.type = "file";
+            fileInput.accept = ".csv";
+
+            fileInput.addEventListener("change", function(event) {
+                var file = event.target.files[0];
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    var contents = e.target.result;
+                    var lines = contents.split("\n");
+
+                    var output = "";
+                    for (var i = 0; i < lines.length; i++) {
+                        var columns = lines[i].split(",");
+                        if (columns.length > 1) {
+                            for (var j = 1; j < columns.length; j++) {
+                                output += columns[j] + "<br>";
+                            }
+                            output += "<br>";  // セルごとに改行
+                        }
+                    }
+
+                    document.getElementById("output").innerHTML = output;
+                };
+
+                reader.readAsText(file);
+            });
+
+            fileInput.click();
+        }
+    </script>
+</head>
+<body>
+    <h1>CSVデータの表示</h1>
+    <button onclick="displayData()">データ表示</button>
+    <div id="output"></div>
+</body>
+</html>
