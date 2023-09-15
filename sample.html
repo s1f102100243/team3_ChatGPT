@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with ChatGPT</title>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="chat-history">
+            <!-- ここにチャット履歴が表示されます -->
+        </div>
+        <input type="text" id="user-input" placeholder="Type a message...">
+        <button id="send-button">Send</button>
+    </div>
+
+    <script>
+        const chatHistory = document.getElementById("chat-history");
+const userInput = document.getElementById("user-input");
+const sendButton = document.getElementById("send-button");
+
+const apiKey = "BYVqECvhL8ZQ3L9uD-WGAUCYvV817AMIIxjAEpXdawn7tgqxa98kRo-66crUFj8gU_h6OxThlCZL9UZ5mZlkT2w"; // あなたのOpenAI APIキーを設定してください
+const apiUrl = "https://api.openai.com/v1/engines/davinci-codex/completions"; // ChatGPTのAPIエンドポイント
+
+sendButton.addEventListener("click", async () => {
+    const userMessage = userInput.value;
+    if (userMessage) {
+        appendMessage("User: " + userMessage);
+        userInput.value = "";
+
+        // ChatGPT APIを呼び出す
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+                prompt: userMessage,
+                max_tokens: 50 // 応答の最大長さを設定
+            })
+        });
+
+        const data = await response.json();
+        const chatGptResponse = data.choices[0].text;
+        appendMessage("ChatGPT: " + chatGptResponse);
+    }
+});
+
+function appendMessage(message) {
+    const messageElement = document.createElement("p");
+    messageElement.textContent = message;
+    chatHistory.appendChild(messageElement);
+}
+
+    </script>
+</body>
+</html>
