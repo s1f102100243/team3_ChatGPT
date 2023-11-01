@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>    
+    <title>Reply page</title>
+    <meta charset="UTF-8">
+    <!--link href="{% static 'tiebukuro/css/default2.css' %}" rel="stylesheet"-->
+  </head>
+  <body>
+    <h1 >返信</h1>
+    <h2>{{ article.title }}</h2>
+    <h4>{{ article.body }}</h4>
+    <p>
+    <!--a href="{% url 'update' article.id %}">投稿の編集</a--> |
+    <!--a href="{% url 'delete' article.id %}">投稿の削除</a-->
+    </p>
+    <hr>
+
+    <h3>返信フォーム</h3>
+    <form action="{% url 'detail' article.id%}" method="post">
+      {% csrf_token %}
+      <div>
+        <label for="textInput">Text</label><br>
+        <textarea id="textInput" name="text" rows="5"></textarea>
+      </div>
+      <div>
+        <button type="submit">投稿</button>
+      </div>
+    </form>
+    {% if comments %}
+    {% for comment in comments %}
+    <div class='text'>
+      <small>[{{ comment.posted_at }}]</small>
+      <div>
+        {{ comment.text | linebreaksbr }}
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>No comment.</p>
+    {% endif %}
+    
+    <p>
+      <a href="{% url 'index' %}">トップページ</a> 
+    </p>
+  </body>
+</html>
