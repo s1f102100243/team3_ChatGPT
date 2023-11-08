@@ -67,26 +67,26 @@ def delete(request, article_id):
     
     return redirect(index)
 
-def know(request, article_id):
+def like(request, article_id):
     try:
         article = Article.objects.get(pk = article_id)
-        article.know += 1
+        article.like += 1
         article.save()
     except Article.DoesNotExist:
         raise Http404("Article does not exist")
 
     return redirect(detail, article_id)
 
-def api_know(request, article_id):
+def api_like(request, article_id):
     try:
         article = Article.objects.get(pk = article_id)
-        article.know += 1
+        article.like += 1
         article.save()
     except Article.DoesNotExist:
         raise Http404("Article does not exist")
     result = {
         'id' : article_id,
-        'know' : article.know
+        'like' : article.like
     }
 
     return JsonResponse(result)
