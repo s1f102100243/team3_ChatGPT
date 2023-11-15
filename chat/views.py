@@ -93,3 +93,6 @@ def api_know(request, article_id):
 
 def room(request, room_name):
     return render(request, "chat/room.html", {"room_name": room_name})
+
+def GPT(request):
+    return render(request, "chat/GPT.html")

@@ -10,6 +10,7 @@
     <body>
         <h1>team3</h1>
         <p>feedback</p>
+        <a href="{% url 'GPT' %}">ChatGPTのテスト</a>
         <form action="{% url 'index' %}" method="post">
             {% csrf_token %}
             <div>
