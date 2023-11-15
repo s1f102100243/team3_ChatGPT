@@ -3,7 +3,7 @@ function callback(json) {
     element.textContent = json.like;
 }
 
-function know(article_id) {
+function like(article_id) {
     fetch('/api/articles/' + article_id + '/like')
     .then(response => response.json())
     .then(callback)
