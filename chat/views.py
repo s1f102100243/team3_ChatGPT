@@ -5,11 +5,11 @@ from chat.models import Article, Comment
 from django.http import Http404, JsonResponse
 
 # Create your views here.
-def index(request):
+def feedback(request):
     if request.method == 'POST':
         article = Article(title=request.POST['title'], body=request.POST['text'])
         article.save()
-        return redirect(detail, article.id)
+        return redirect(reply, article.id)
     
     if ('sort' in request.GET):
         if request.GET['sort'] == 'like':
@@ -22,7 +22,7 @@ def index(request):
         "articles": articles    
     }
     
-    return render(request, 'chat/home.html', context)
+    return render(request, 'chat/feedback.html', context)
 
 def update(request, article_id):
     try:
@@ -33,7 +33,7 @@ def update(request, article_id):
         article.title = request.POST['title']
         article.body = request.POST['text']
         article.save()
-        return redirect(detail, article_id)
+        return redirect(reply, article_id)
     context = {
         'article': article
     }
@@ -41,7 +41,7 @@ def update(request, article_id):
     
 
 
-def detail(request, article_id):
+def reply(request, article_id):
     try:
         article = Article.objects.get(pk=article_id)
     except:
@@ -54,7 +54,7 @@ def detail(request, article_id):
         "article": article,
         'comments' : article.comments.order_by('-posted_at')
     }
-    return render(request, "chat/detail.html", context)
+    return render(request, "chat/reply.html", context)
 
 
 def delete(request, article_id):
@@ -65,7 +65,7 @@ def delete(request, article_id):
 
     article.delete()
     
-    return redirect(index)
+    return redirect(feedback)
 
 def like(request, article_id):
     try:
@@ -75,7 +75,7 @@ def like(request, article_id):
     except Article.DoesNotExist:
         raise Http404("Article does not exist")
 
-    return redirect(detail, article_id)
+    return redirect(reply, article_id)
 
 def api_like(request, article_id):
     try:

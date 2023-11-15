@@ -10,7 +10,7 @@
     <body>
         <h1>team3</h1>
         <p>feedback</p>
-        <form action="{% url 'index' %}" method="post">
+        <form action="{% url 'feedback' %}" method="post">
             {% csrf_token %}
             <div>
                 <label for=>タイトル</label><br>
@@ -30,7 +30,7 @@
         {% if articles %}
         {% for article in articles %}
         <div class="text">
-            <h2><a href="{% url 'detail' article.id %}">{{ article.title }}</a></h2>
+            <h2><a href="{% url 'reply' article.id %}">{{ article.title }}</a></h2>
             <small>[{{ article.posted_at }}]</small>
             <div>
                 <a onclick="like({{article.id}});">

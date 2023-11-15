@@ -17,7 +17,7 @@
     <hr>
 
     <h3>返信フォーム</h3>
-    <form action="{% url 'detail' article.id%}" method="post">
+    <form action="{% url 'reply' article.id%}" method="post">
       {% csrf_token %}
       <div>
         <label for="textInput">Text</label><br>
@@ -41,7 +41,7 @@
     {% endif %}
     
     <p>
-      <a href="{% url 'index' %}">トップページ</a> 
+      <a href="{% url 'feedback' %}">トップページ</a> 
     </p>
   </body>
 </html>
