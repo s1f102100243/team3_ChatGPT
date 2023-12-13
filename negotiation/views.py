@@ -1,10 +1,68 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse 
 from django.utils import timezone
-from chat.models import Article, Comment
+from django.template import loader
+from .forms import ChatForm
+from negotiation.models import Article, Comment
 from django.http import Http404, JsonResponse
+from django.conf import settings
+
+import openai
+
+API_KEY = settings.OPENAI_API_KEY
+BASE_URL = settings.OPENAI_API_BASE
+
 
 # Create your views here.
+
+def index(request):
+    """
+    チャット画面
+    """
+    client = openai.OpenAI(
+
+    api_key=API_KEY,
+
+    base_url=BASE_URL,
+    )
+
+    # 応答結果
+    chat_results = ""
+
+    if request.method == "POST":
+        # ChatGPTボタン押下時
+
+        form = ChatForm(request.POST)
+        if form.is_valid():
+
+            sentence = form.cleaned_data['sentence']
+
+            # ChatGPT
+            response = client.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "日本語で応答してください"
+                    },
+                    {
+                        "role": "user",
+                        "content": sentence
+                    },
+                ],
+            )
+
+            chat_results = response.choices[0].message.content
+    else:
+        form = ChatForm()
+
+    template = loader.get_template('negotiation/index.html')
+    context = {
+        'form': form,
+        'chat_results': chat_results
+    }
+    return HttpResponse(template.render(context, request))
+
 def feedback(request):
     if request.method == 'POST':
         article = Article(title=request.POST['title'], body=request.POST['text'])
@@ -22,7 +80,7 @@ def feedback(request):
         "articles": articles    
     }
     
-    return render(request, 'chat/feedback.html', context)
+    return render(request, 'negotiation/feedback.html', context)
 
 def update(request, article_id):
     try:
@@ -37,7 +95,7 @@ def update(request, article_id):
     context = {
         'article': article
     }
-    return render(request, 'chat/edit.html', context)
+    return render(request, 'negotiation/edit.html', context)
     
 
 
@@ -54,7 +112,7 @@ def reply(request, article_id):
         "article": article,
         'comments' : article.comments.order_by('-posted_at')
     }
-    return render(request, "chat/reply.html", context)
+    return render(request, "negotiation/reply.html", context)
 
 
 def delete(request, article_id):
@@ -92,4 +150,5 @@ def api_like(request, article_id):
     return JsonResponse(result)
 
 def room(request, room_name):
-    return render(request, "chat/room.html", {"room_name": room_name})
+    return render(request, "negotiation/room.html", {"room_name": room_name})
+

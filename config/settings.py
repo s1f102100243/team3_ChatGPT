@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'daphne',
-    'chat',
+    'negotiation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -133,3 +133,6 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+OPENAI_API_KEY = "zFjwsfxop5Klw9-lrxkASekf4fBy3kYslEIo98j447SHEhdYRtY4drIPw2Am8pBlEYVl8MjitYY-AzBV0rluluQ"
+OPENAI_API_BASE = "https://api.openai.iniad.org/api/v1"
