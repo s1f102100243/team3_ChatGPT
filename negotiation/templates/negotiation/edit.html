@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>    
+    <title>編集</title>
+    <meta charset="UTF-8"></head>
+    <!--link href="{% static 'tiebukuro/css/default3.css' %}" rel="stylesheet"-->
+    <body>
+        <h1 >投稿の編集</h1>
+    <form action="{% url 'update' article.id %}" method="post">
+      {% csrf_token %}
+      <div>
+        <label for="titleInput">タイトル</label>
+        <input id="titleInput" name="title" type="text"
+          placeholder="Input title" value="{{ article.title }}">
+      </div>
+      <div>
+        <label for="textInput">内容</label>
+        <textarea id="textInput" name="text" rows="8"> {{ article.body }}</textarea>
+      </div>
+      <div>
+        <button type="submit">投稿</button>
+      </div>
+    </form>
+    <hr>
+    <a href="{% url 'index' %}">トップページ</a>
+    </body>

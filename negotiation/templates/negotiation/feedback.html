@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>team3</title>
+        <meta charset="UTF-8">
+        <!--link href="{% static 'chat/css/default.css' %}" rel="stylesheet"-->
+        <script type="text/javascript" src="{% static 'negotiation/js/index.js' %}"></script>
+    </head>
+    <body>
+        <h1>team3</h1>
+        <p>feedback</p>
+        <form action="{% url 'feedback' %}" method="post">
+            {% csrf_token %}
+            <div>
+                <label for=>タイトル</label><br>
+                <input id="titleInput" name="title" type="text" placeholder="Input title">
+            </div>
+            <div>
+                <label for="textInput">内容</label><br>
+                <textarea id="textInput" name="text" rows="10"></textarea>
+            </div>
+            <div>
+                <button type="submit">投稿</button>
+            </div>
+        </form>
+
+        <hr>
+
+        {% if articles %}
+        {% for article in articles %}
+        <div class="text">
+            <h2><a href="{% url 'reply' article.id %}">{{ article.title }}</a></h2>
+            <small>[{{ article.posted_at }}]</small>
+            <div>
+                <a onclick="like({{article.id}});">
+                    いいね: <span id="like{{article.id}}">{{ article.like }}</span>
+                  </a> 
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>投稿はありません</p>
+        {% endif %}
+    </body>
+</html>
