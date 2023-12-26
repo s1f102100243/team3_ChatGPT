@@ -30,7 +30,7 @@ def chat():
     amount_tokens += response["usage"]["total_tokens"]
     chat.append({"role": "assistant", "content": msg})
 
-    return msg
+    return render_template('chat.html', user_input=user_input, assistant_response=msg)
 
 if __name__ == "__main__":
     app.run(debug=True)

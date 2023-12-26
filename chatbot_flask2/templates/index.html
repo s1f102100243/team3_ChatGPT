@@ -9,14 +9,13 @@
 <body>
     <h1>Welcome to ChatGPT Web App</h1>
     <form action="/chat" method="post">
-        <label for="setting">ChatGPTに設定を加えますか? y/n</label>
-        <input type="text" id="setting" name="setting" required>
-        <br>
-        <label for="content">内容を入力してください。</label>
-        <input type="text" id="content" name="content">
-        <br>
-        <label for="user_input">ユーザーの入力</label>
-        <input type="text" id="user_input" name="user_input" required>
+        <!-- 新しい条件 -->
+        <input type="hidden" id="setting" name="setting" value="y">
+        <input type="hidden" id="content" name="content" value="5人1組のグループを二つ作り、次に与えるテーマについてそれぞれのグループで話し合ってください">
+        <!-- 新しい条件ここまで -->
+
+        <label for="theme">話し合うテーマ</label>
+        <input type="text" id="theme" name="user_input" required>
         <br>
         <button type="submit">Submit</button>
     </form>
