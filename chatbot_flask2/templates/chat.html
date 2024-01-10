@@ -37,15 +37,21 @@
     {% if user_input %}
         <!-- ユーザー側のメッセージ -->
         <div class="user-message">
-            <p><strong>You:</strong> {{ user_input }}</p>
+            <p><strong>You:</strong> <span id="user-input">{{ user_input }}</span></p>
         </div>
     {% endif %}
 
     {% if assistant_response %}
         <!-- ChatGPT側のメッセージ -->
         <div class="assistant-message">
-            <p><strong>ChatGPT:</strong> {{ assistant_response }}</p>
+            <p><strong>ChatGPT:</strong> <span id="assistant-response">{{ assistant_response }}</span></p>
         </div>
     {% endif %}
+
+    <script>
+        // JavaScriptで改行を<br>タグに変換
+        document.getElementById('user-input').innerHTML = document.getElementById('user-input').innerHTML.replace(/\n/g, '<br>');
+        document.getElementById('assistant-response').innerHTML = document.getElementById('assistant-response').innerHTML.replace(/\n/g, '<br>');
+    </script>
 </body>
 </html>
