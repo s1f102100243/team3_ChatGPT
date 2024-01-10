@@ -1,9 +1,13 @@
 from flask import Flask, render_template, request
 import openai
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 app = Flask(__name__)
 
-openai.api_key = "SuH8dt0jFtXYzsvNgF7LzTZEWjK2eD-oLCG5Rf8Di9YD4jQYLReRFr_ehhD9LuAtw__9mcJNHb-tLpcbbunuFDQ"
+openai.api_key = os.environ.get('YOUR_API_KEY')
 openai.api_base = "https://api.openai.iniad.org/api/v1"
 
 @app.route('/')
