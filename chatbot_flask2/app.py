@@ -25,7 +25,11 @@ def chat():
             "member3": request.form.get('member3_input', ''),
             "member4": request.form.get('member4_input', ''),
             "member5": request.form.get('member5_input', ''),
-            #... More members if needed
+            "member6": request.form.get('member6_input', ''),
+            "member7": request.form.get('member7_input', ''),
+            "member8": request.form.get('member8_input', ''),
+            "member9": request.form.get('member9_input', ''),
+            "member10": request.form.get('member10_input', ''),
         }
         
         discussion_content = []
@@ -54,7 +58,7 @@ def chat():
         
         # Personality statements (assuming these fields exist in your form)
         # Collect these only if you need them for the conversation
-        personalities = {key: request.form.get(key, '') for key in ['personality_1', 'personality_2', 'personality_3', 'personality_4', 'personality_5']}
+        personalities = {key: request.form.get(key, '') for key in ['personality_1', 'personality_2', 'personality_3', 'personality_4', 'personality_5', 'personality_6', 'personality_7', 'personality_8', 'personality_9', 'personality_10']}
         personality_statements = [f"{key[-1]}: {value}" for key, value in personalities.items() if value]
         
         if personality_statements:
