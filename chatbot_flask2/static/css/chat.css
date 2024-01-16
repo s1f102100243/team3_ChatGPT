@@ -77,6 +77,106 @@ body {
     overflow:hidden;
 } 
 
+.chat2 .comment.member1-class,
+.chat2 .comment.member2-class,
+.chat2 .comment.member3-class,
+.chat2 .comment.member4-class,
+.chat2 .comment.member5-class,
+.chat2 .comment.member6-class,
+.chat2 .comment.member7-class,
+.chat2 .comment.member8-class,
+.chat2 .comment.member9-class,
+.chat2 .comment.member10-class {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 0 0 8px;
+    padding: 8px;
+    border: solid 1px rgb(150, 150, 150);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.chat2 .comment.member1-class {
+    background: #ff4848;
+}
+
+.chat2 .comment.member2-class {
+    background: #abffab;
+}
+
+.chat2 .comment.member3-class {
+    background: #7777ff;
+}
+
+.chat2 .comment.member4-class {
+    background: #f775f7;
+}
+
+.chat2 .comment.member5-class {
+    background: #ffff7e;
+}
+
+.chat2 .comment.member6-class {
+    background: #00ffff;
+}
+
+.chat2 .comment.member7-class {
+    background: #ff9900;
+}
+
+.chat2 .comment.member8-class {
+    background: #bc57ff;
+}
+
+.chat2 .comment.member9-class {
+    background: #ffcc00;
+}
+
+.chat2 .comment.member10-class {
+    background: #ccff00;
+}
+
+.logo.member1-class {
+    background: #ff0000; /* メンバー1のロゴ色 */
+}
+
+.logo.member2-class {
+    background: #00ff00; /* メンバー2のロゴ色 */
+}
+
+.logo.member3-class {
+    background: #0000ff; /* メンバー3のロゴ色 */
+}
+
+.logo.member4-class {
+    background: #ff00ff; /* メンバー4のロゴ色 */
+}
+
+.logo.member5-class {
+    background: #ffff00; /* メンバー5のロゴ色 */
+}
+
+.logo.member6-class {
+    background: #00ffff; /* メンバー6のロゴ色 */
+}
+
+.logo.member7-class {
+    background: #ff9900; /* メンバー7のロゴ色 */
+}
+
+.logo.member8-class {
+    background: #9900ff; /* メンバー8のロゴ色 */
+}
+
+.logo.member9-class {
+    background: #ffcc00; /* メンバー9のロゴ色 */
+}
+
+.logo.member10-class {
+    background: #ccff00; /* メンバー10のロゴ色 */
+}
+
+
 .chat .comment .logo {
     float: left; /* 追加: ロゴを左に配置 */
     margin-right: 8px; /* 追加: ロゴとコメントの間隔 */
