@@ -1,3 +1,4 @@
+{% from "macros.html" import render_personality_select %}
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -5,19 +6,211 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChatGPT Web App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 <body>
-    <h1>Welcome to ChatGPT Web App</h1>
-    <form action="/chat" method="post">
-        <!-- 新しい条件 -->
-        <input type="hidden" id="setting" name="setting" value="y">
-        <input type="hidden" id="content" name="content" value="5人1組のグループを二つ作り、次に与えるテーマについてそれぞれのグループで話し合ってください">
-        <!-- 新しい条件ここまで -->
+    <div class="container">
+        <div class="left-content">
+            <h1>Welcome to ChatGPT Web App</h1>
+            <form action="/chat" method="post">
+                <!-- 新しい条件 -->
+                <input type="hidden" id="setting" name="setting" value="y">
+                <input type="hidden" id="content" name="content" value="#命令書:
+                あなたはChatGPTです。以下の指示に従って、質問に答えてください。指示には次の制約条件が含まれます。
+                
+                #制約条件:
+                ・各メンバーの感情パラメーター（喜び、怒り、悲しみ、楽しさ、自信、困惑、恐怖）は裏で機能します。各メンバーの発言は、それぞれの感情パラメーターに基づいて異なるトーンやスタンスを反映するものとします。
+                ・メンバーごとの感情パラメーターの数字は表示せず、発言の内容だけを出力します。
+                ・発言は、与えられた入力テーマに基づいて各メンバーがどのように感じているかを反映するような形で行ってください。
 
-        <label for="theme">話し合うテーマ</label>
-        <input type="text" id="theme" name="user_input" required>
-        <br>
-        <button type="submit">Submit</button>
-    </form>
+                #出力形式:
+                    グループAの話し合い：
+                    メンバー1: ...
+                    メンバー2: ...
+                    メンバー3: ...
+                    メンバー4: ...
+                    メンバー5: ...
+                    ...
+                    グループBの話し合い：
+                    メンバー6: ...
+                    メンバー7: ...
+                    メンバー8: ...
+                    メンバー9: ...
+                    メンバー10: ...
+                    ...
+
+                    最終的にグループAとグループBの結論を、それぞれのメンバーの感情パラメーターに基づいた総合した意見として出力してください。
+                ">
+        
+                <!-- 新しい条件ここまで -->
+
+                <label for="theme">話し合うテーマ</label>
+                <input type="text" id="theme" name="user_input" required>
+                <br>
+                <button type="submit">Submit</button>
+                <br>
+
+                <label for="personality_1">1の性格</label>
+                <select id="personality_1" name="personality_1">
+                    <option value="--">--</option>
+                    <option value="さみしがり">さみしがり</option>
+                    <option value="いじっぱり">いじっぱり</option>
+                    <option value="やんちゃ">やんちゃ</option>
+                    <option value="ゆうかん">ゆうかん</option>
+                    <option value="ずぶとい">ずぶとい</option>
+                    <option value="わんぱく">わんぱく</option>
+                    <option value="のうてんき">のうてんき</option>
+                    <option value="のんき">のんき</option>
+                    <option value="ひかえめ">ひかえめ</option>
+                    <option value="おっとり">おっとり</option>
+                    <option value="うっかりや">うっかりや</option>
+                    <option value="れいせい">れいせい</option>
+                    <option value="おだやか">おだやか</option>
+                    <option value="おとなしい">おとなしい</option>
+                    <option value="しんちょう">しんちょう</option>
+                    <option value="なまいき">なまいき</option>
+                    <option value="おくびょう">おくびょう</option>
+                    <option value="せっかち">せっかち</option>
+                    <option value="ようき">ようき</option>
+                    <option value="むじゃき">むじゃき</option>
+                    <option value="てれや">てれや</option>
+                    <option value="がんばりや">がんばりや</option>
+                    <option value="すなお">すなお</option>
+                    <option value="きまぐれ">きまぐれ</option>
+                    <option value="まじめ">まじめ</option>
+                </select>
+                <br>
+
+                <label for="personality_2">2の性格</label>
+                <select id="personality_2" name="personality_2">
+                    <option value="--">--</option>
+                    <option value="さみしがり">さみしがり</option>
+                    <option value="いじっぱり">いじっぱり</option>
+                    <option value="やんちゃ">やんちゃ</option>
+                    <option value="ゆうかん">ゆうかん</option>
+                    <option value="ずぶとい">ずぶとい</option>
+                    <option value="わんぱく">わんぱく</option>
+                    <option value="のうてんき">のうてんき</option>
+                    <option value="のんき">のんき</option>
+                    <option value="ひかえめ">ひかえめ</option>
+                    <option value="おっとり">おっとり</option>
+                    <option value="うっかりや">うっかりや</option>
+                    <option value="れいせい">れいせい</option>
+                    <option value="おだやか">おだやか</option>
+                    <option value="おとなしい">おとなしい</option>
+                    <option value="しんちょう">しんちょう</option>
+                    <option value="なまいき">なまいき</option>
+                    <option value="おくびょう">おくびょう</option>
+                    <option value="せっかち">せっかち</option>
+                    <option value="ようき">ようき</option>
+                    <option value="むじゃき">むじゃき</option>
+                    <option value="てれや">てれや</option>
+                    <option value="がんばりや">がんばりや</option>
+                    <option value="すなお">すなお</option>
+                    <option value="きまぐれ">きまぐれ</option>
+                    <option value="まじめ">まじめ</option>
+                </select>
+                <br>
+
+                <label for="personality_3">3の性格</label>
+                <select id="personality_3" name="personality_3">
+                    <option value="--">--</option>
+                    <option value="さみしがり">さみしがり</option>
+                    <option value="いじっぱり">いじっぱり</option>
+                    <option value="やんちゃ">やんちゃ</option>
+                    <option value="ゆうかん">ゆうかん</option>
+                    <option value="ずぶとい">ずぶとい</option>
+                    <option value="わんぱく">わんぱく</option>
+                    <option value="のうてんき">のうてんき</option>
+                    <option value="のんき">のんき</option>
+                    <option value="ひかえめ">ひかえめ</option>
+                    <option value="おっとり">おっとり</option>
+                    <option value="うっかりや">うっかりや</option>
+                    <option value="れいせい">れいせい</option>
+                    <option value="おだやか">おだやか</option>
+                    <option value="おとなしい">おとなしい</option>
+                    <option value="しんちょう">しんちょう</option>
+                    <option value="なまいき">なまいき</option>
+                    <option value="おくびょう">おくびょう</option>
+                    <option value="せっかち">せっかち</option>
+                    <option value="ようき">ようき</option>
+                    <option value="むじゃき">むじゃき</option>
+                    <option value="てれや">てれや</option>
+                    <option value="がんばりや">がんばりや</option>
+                    <option value="すなお">すなお</option>
+                    <option value="きまぐれ">きまぐれ</option>
+                    <option value="まじめ">まじめ</option>
+                </select>
+                <br>
+
+                <label for="personality_4">4の性格</label>
+                <select id="personality_4" name="personality_4">
+                    <option value="--">--</option>
+                    <option value="さみしがり">さみしがり</option>
+                    <option value="いじっぱり">いじっぱり</option>
+                    <option value="やんちゃ">やんちゃ</option>
+                    <option value="ゆうかん">ゆうかん</option>
+                    <option value="ずぶとい">ずぶとい</option>
+                    <option value="わんぱく">わんぱく</option>
+                    <option value="のうてんき">のうてんき</option>
+                    <option value="のんき">のんき</option>
+                    <option value="ひかえめ">ひかえめ</option>
+                    <option value="おっとり">おっとり</option>
+                    <option value="うっかりや">うっかりや</option>
+                    <option value="れいせい">れいせい</option>
+                    <option value="おだやか">おだやか</option>
+                    <option value="おとなしい">おとなしい</option>
+                    <option value="しんちょう">しんちょう</option>
+                    <option value="なまいき">なまいき</option>
+                    <option value="おくびょう">おくびょう</option>
+                    <option value="せっかち">せっかち</option>
+                    <option value="ようき">ようき</option>
+                    <option value="むじゃき">むじゃき</option>
+                    <option value="てれや">てれや</option>
+                    <option value="がんばりや">がんばりや</option>
+                    <option value="すなお">すなお</option>
+                    <option value="きまぐれ">きまぐれ</option>
+                    <option value="まじめ">まじめ</option>
+                </select>
+                <br>
+
+                <label for="personality_5">5の性格</label>
+                <select id="personality_5" name="personality_5">
+                    <option value="--">--</option>
+                    <option value="さみしがり">さみしがり</option>
+                    <option value="いじっぱり">いじっぱり</option>
+                    <option value="やんちゃ">やんちゃ</option>
+                    <option value="ゆうかん">ゆうかん</option>
+                    <option value="ずぶとい">ずぶとい</option>
+                    <option value="わんぱく">わんぱく</option>
+                    <option value="のうてんき">のうてんき</option>
+                    <option value="のんき">のんき</option>
+                    <option value="ひかえめ">ひかえめ</option>
+                    <option value="おっとり">おっとり</option>
+                    <option value="うっかりや">うっかりや</option>
+                    <option value="れいせい">れいせい</option>
+                    <option value="おだやか">おだやか</option>
+                    <option value="おとなしい">おとなしい</option>
+                    <option value="しんちょう">しんちょう</option>
+                    <option value="なまいき">なまいき</option>
+                    <option value="おくびょう">おくびょう</option>
+                    <option value="せっかち">せっかち</option>
+                    <option value="ようき">ようき</option>
+                    <option value="むじゃき">むじゃき</option>
+                    <option value="てれや">てれや</option>
+                    <option value="がんばりや">がんばりや</option>
+                    <option value="すなお">すなお</option>
+                    <option value="きまぐれ">きまぐれ</option>
+                    <option value="まじめ">まじめ</option>
+                </select>
+                <br>
+            </form>
+        </div>
+        <div class="right-content">
+            <div id="image-container">
+                <img src="{{ url_for('static', filename='images/RoundTable.jpg') }}" alt="Round Table Image" id="RoundTable-image">
+            </div>
+        </div>
+    </div>
 </body>
 </html>

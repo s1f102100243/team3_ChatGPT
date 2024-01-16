@@ -1,0 +1,17 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.user-message {
+    background-color: #e6f7ff; /* ユーザー側の背景色 */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.assistant-message {
+    background-color: #f0f0f0; /* ChatGPT側の背景色 */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}

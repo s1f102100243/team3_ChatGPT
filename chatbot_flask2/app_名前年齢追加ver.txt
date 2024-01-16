@@ -8,6 +8,30 @@ app = Flask(__name__)
 openai.api_key = os.environ.get('YOUR_API_KEY')
 openai.api_base = "https://api.openai.iniad.org/api/v1"
 
+# 感情パラメーターのデフォルト値
+DEFAULT_EMOTIONS = {
+    "joy": 0,
+    "anger": 0,
+    "sadness": 0,
+    "happiness": 0,
+    "confidence": 0,
+    "confusion": 0,
+    "fear": 0,
+}
+
+def get_member_emotions():
+    member_emotions = {}
+    for i in range(1, 6):
+        member_name = f"member{i}"
+        member_emotions[member_name] = DEFAULT_EMOTIONS.copy()
+    return member_emotions
+
+def add_emotion_statements(chat, member_emotions):
+    for member_name, emotions in member_emotions.items():
+        emotion_statements = [f"{member_name}の{emotion}: {value}" for emotion, value in emotions.items()]
+        if emotion_statements:
+            chat.append({"role": "assistant", "content": "\n".join(emotion_statements)})
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -17,7 +41,10 @@ def chat():
     if request.method == 'POST':
         amount_tokens = 0
         chat = []
-        
+
+        # 感情パラメーターの初期化
+        member_emotions = get_member_emotions()
+
         # Group discussion inputs.
         group_discussion_inputs = {
             "member1": request.form.get('member1_input', ''),
@@ -27,7 +54,7 @@ def chat():
             "member5": request.form.get('member5_input', ''),
             #... More members if needed
         }
-        
+
         discussion_content = []
         for member, content in group_discussion_inputs.items():
             if content:
@@ -38,7 +65,7 @@ def chat():
         group_discussion_text = '\n'.join(discussion_content)
         if group_discussion_text:
             chat.append({"role": "system", "content": group_discussion_text})
-        
+
         # Process other chat inputs
         setting = request.form.get('setting', '')
         if setting.lower() in ['y', 'yes']:
@@ -54,25 +81,26 @@ def chat():
         
         # Personality statements (assuming these fields exist in your form)
         # Collect these only if you need them for the conversation
-        personalities = {key: request.form.get(key, '') for key in ['personality_1', 'personality_2', 'personality_3', 'personality_4', 'personality_5']}
+        personalities = {key: request.form.get(key, '') for key in ['personality_A', 'personality_B', 'personality_C', 'personality_D', 'personality_E']}
         personality_statements = [f"{key[-1]}: {value}" for key, value in personalities.items() if value]
         
         if personality_statements:
             chat.append({"role": "assistant", "content": "\n".join(personality_statements)})
-        
+
+        # チャットに感情パラメーターの情報を追加
+        add_emotion_statements(chat, member_emotions)
+
         # Call the OpenAI API for a chat response
         response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=chat)
         assistant_msg = response["choices"][0]["message"]["content"].strip()
         amount_tokens += response["usage"]["total_tokens"]
         chat.append({"role": "assistant", "content": assistant_msg})
-        
+
         return render_template('chat.html', user_input=user_input, assistant_response=assistant_msg, discussion_response=group_discussion_text)
     
     else:
         # Render the initial form
         return render_template('chat.html')
-
-# ... Additional routes and application setup if needed.
 
 if __name__ == '__main__':
     app.run(debug=True)

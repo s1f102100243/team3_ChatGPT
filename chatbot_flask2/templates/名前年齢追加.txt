@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT Web App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <script>
+        // JavaScript 関数で、メンバーの入力フィールドを動的に表示
+        function showMemberInputs(memberId) {
+            var memberDiv = document.getElementById('member-' + memberId + '-inputs');
+            memberDiv.style.display = 'block';
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="left-content">
+            <h1>Welcome to ChatGPT Web App</h1>
+            <form action="/chat" method="post">
+                <!-- 新しい条件 -->
+                <input type="hidden" id="setting" name="setting" value="y">
+                <input type="hidden" id="content" name="content" value="#命令書:
+                あなたは、ChatGPTです。
+                以下の制約条件と入力文をもとに、 最高の結果を出力してください。
+               
+                #制約条件:
+                ・文字数は300文字以内
+                ・グループAとグループBをそれぞれ作り、与えられたテーマについて話し合う。それぞれのグループは5人で構成され、一人ひとり区別がつくようにする。話し合いの書き出しは必ず「グループAの話し合い：○○」で始め、文の最後には「グループAの結論：◇◇、グループBの結論：☆☆」と記述する。
+               
+                #入力文:
+                グループAの話し合い：メンバー1、メンバー2、メンバー3、メンバー4、メンバー5
+                グループBの話し合い：メンバー6、メンバー7、メンバー8、メンバー9、メンバー10
+               
+                #出力文:
+                ">
+        
+                <!-- 新しい条件ここまで -->
+
+                <label for="theme">話し合うテーマ</label>
+                <input type="text" id="theme" name="user_input" required>
+                <br>
+
+                <!-- メンバー1の入力フィールドをトリガーするボタン -->
+                <button type="button" onclick="showMemberInputs(1);">メンバー1の情報を入力</button>
+                <!-- メンバー1の入力欄（デフォルトでは非表示） -->
+                <div id="member-1-inputs" style="display: none;">
+                    <label for="member1_name">メンバー1の名前:</label>
+                    <input type="text" id="member1_name" name="member1_name">
+                    <br>
+
+                    <label for="member1_age">メンバー1の年齢:</label>
+                    <input type="number" id="member1_age" name="member1_age">
+                    <br>
+
+                    <label for="member1_personality">メンバー1の性格:</label>
+                    <select id="member1_personality" name="member1_personality">
+                        <option value="--">--</option>
+                        <option value="さみしがり">さみしがり</option>
+                        <option value="いじっぱり">いじっぱり</option>
+                        <option value="やんちゃ">やんちゃ</option>
+                        <option value="ゆうかん">ゆうかん</option>
+                        <option value="ずぶとい">ずぶとい</option>
+                        <option value="わんぱく">わんぱく</option>
+                        <option value="のうてんき">のうてんき</option>
+                        <option value="のんき">のんき</option>
+                        <option value="ひかえめ">ひかえめ</option>
+                        <option value="おっとり">おっとり</option>
+                        <option value="うっかりや">うっかりや</option>
+                        <option value="れいせい">れいせい</option>
+                        <option value="おだやか">おだやか</option>
+                        <option value="おとなしい">おとなしい</option>
+                        <option value="しんちょう">しんちょう</option>
+                        <option value="なまいき">なまいき</option>
+                        <option value="おくびょう">おくびょう</option>
+                        <option value="せっかち">せっかち</option>
+                        <option value="ようき">ようき</option>
+                        <option value="むじゃき">むじゃき</option>
+                        <option value="てれや">てれや</option>
+                        <option value="がんばりや">がんばりや</option>
+                        <option value="すなお">すなお</option>
+                        <option value="きまぐれ">きまぐれ</option>
+                        <option value="まじめ">まじめ</option>
+                    </select>
+                    <br>
+                </div>
+
+                <!-- メンバー2の入力フィールドをトリガーするボタン -->
+                <button type="button" onclick="showMemberInputs(2);">メンバー2の情報を入力</button>
+                <!-- メンバー2の入力欄（デフォルトでは非表示） -->
+                <div id="member-2-inputs" style="display: none;">
+                    <label for="member2_name">メンバー2の名前:</label>
+                    <input type="text" id="member2_name" name="member2_name">
+                    <br>
+
+                    <label for="member2_age">メンバー2の年齢:</label>
+                    <input type="number" id="member2_age" name="member2_age">
+                    <br>
+
+                    <label for="member2_personality">メンバー2の性格:</label>
+                    <select id="member2_personality" name="member2_personality">
+                        <option value="--">--</option>
+                        <option value="さみしがり">さみしがり</option>
+                        <option value="いじっぱり">いじっぱり</option>
+                        <option value="やんちゃ">やんちゃ</option>
+                        <option value="ゆうかん">ゆうかん</option>
+                        <option value="ずぶとい">ずぶとい</option>
+                        <option value="わんぱく">わんぱく</option>
+                        <option value="のうてんき">のうてんき</option>
+                        <option value="のんき">のんき</option>
+                        <option value="ひかえめ">ひかえめ</option>
+                        <option value="おっとり">おっとり</option>
+                        <option value="うっかりや">うっかりや</option>
+                        <option value="れいせい">れいせい</option>
+                        <option value="おだやか">おだやか</option>
+                        <option value="おとなしい">おとなしい</option>
+                        <option value="しんちょう">しんちょう</option>
+                        <option value="なまいき">なまいき</option>
+                        <option value="おくびょう">おくびょう</option>
+                        <option value="せっかち">せっかち</option>
+                        <option value="ようき">ようき</option>
+                        <option value="むじゃき">むじゃき</option>
+                        <option value="てれや">てれや</option>
+                        <option value="がんばりや">がんばりや</option>
+                        <option value="すなお">すなお</option>
+                        <option value="きまぐれ">きまぐれ</option>
+                        <option value="まじめ">まじめ</option>
+                    </select>
+                    <br>
+                </div>
+
+                <!-- メンバー3の入力フィールドをトリガーするボタン -->
+                <button type="button" onclick="showMemberInputs(3);">メンバー3の情報を入力</button>
+                <!-- メンバー3の入力欄（デフォルトでは非表示） -->
+                <div id="member-3-inputs" style="display: none;">
+                    <label for="member3_name">メンバー3の名前:</label>
+                    <input type="text" id="member3_name" name="member3_name">
+                    <br>
+
+                    <label for="member3_age">メンバー3の年齢:</label>
+                    <input type="number" id="member2_age" name="member2_age">
+                    <br>
+
+                    <label for="member3_personality">メンバー3の性格:</label>
+                    <select id="member3_personality" name="member3_personality">
+                        <option value="--">--</option>
+                        <option value="さみしがり">さみしがり</option>
+                        <option value="いじっぱり">いじっぱり</option>
+                        <option value="やんちゃ">やんちゃ</option>
+                        <option value="ゆうかん">ゆうかん</option>
+                        <option value="ずぶとい">ずぶとい</option>
+                        <option value="わんぱく">わんぱく</option>
+                        <option value="のうてんき">のうてんき</option>
+                        <option value="のんき">のんき</option>
+                        <option value="ひかえめ">ひかえめ</option>
+                        <option value="おっとり">おっとり</option>
+                        <option value="うっかりや">うっかりや</option>
+                        <option value="れいせい">れいせい</option>
+                        <option value="おだやか">おだやか</option>
+                        <option value="おとなしい">おとなしい</option>
+                        <option value="しんちょう">しんちょう</option>
+                        <option value="なまいき">なまいき</option>
+                        <option value="おくびょう">おくびょう</option>
+                        <option value="せっかち">せっかち</option>
+                        <option value="ようき">ようき</option>
+                        <option value="むじゃき">むじゃき</option>
+                        <option value="てれや">てれや</option>
+                        <option value="がんばりや">がんばりや</option>
+                        <option value="すなお">すなお</option>
+                        <option value="きまぐれ">きまぐれ</option>
+                        <option value="まじめ">まじめ</option>
+                    </select>
+                    <br>
+                </div>
+
+                <!-- メンバー4の入力フィールドをトリガーするボタン -->
+                <button type="button" onclick="showMemberInputs(4);">メンバー4の情報を入力</button>
+                <!-- メンバー4の入力欄（デフォルトでは非表示） -->
+                <div id="member-4-inputs" style="display: none;">
+                    <label for="member4_name">メンバー4の名前:</label>
+                    <input type="text" id="member4_name" name="member4_name">
+                    <br>
+
+                    <label for="member4_age">メンバー4の年齢:</label>
+                    <input type="number" id="member4_age" name="member4_age">
+                    <br>
+
+                    <label for="member4_personality">メンバー4の性格:</label>
+                    <select id="member4_personality" name="member4_personality">
+                        <option value="--">--</option>
+                        <option value="さみしがり">さみしがり</option>
+                        <option value="いじっぱり">いじっぱり</option>
+                        <option value="やんちゃ">やんちゃ</option>
+                        <option value="ゆうかん">ゆうかん</option>
+                        <option value="ずぶとい">ずぶとい</option>
+                        <option value="わんぱく">わんぱく</option>
+                        <option value="のうてんき">のうてんき</option>
+                        <option value="のんき">のんき</option>
+                        <option value="ひかえめ">ひかえめ</option>
+                        <option value="おっとり">おっとり</option>
+                        <option value="うっかりや">うっかりや</option>
+                        <option value="れいせい">れいせい</option>
+                        <option value="おだやか">おだやか</option>
+                        <option value="おとなしい">おとなしい</option>
+                        <option value="しんちょう">しんちょう</option>
+                        <option value="なまいき">なまいき</option>
+                        <option value="おくびょう">おくびょう</option>
+                        <option value="せっかち">せっかち</option>
+                        <option value="ようき">ようき</option>
+                        <option value="むじゃき">むじゃき</option>
+                        <option value="てれや">てれや</option>
+                        <option value="がんばりや">がんばりや</option>
+                        <option value="すなお">すなお</option>
+                        <option value="きまぐれ">きまぐれ</option>
+                        <option value="まじめ">まじめ</option>
+                    </select>
+                    <br>
+                </div>
+
+                <!-- メンバー5の入力フィールドをトリガーするボタン -->
+                <button type="button" onclick="showMemberInputs(5);">メンバー5の情報を入力</button>
+                <!-- メンバー2の入力欄（デフォルトでは非表示） -->
+                <div id="member-5-inputs" style="display: none;">
+                    <label for="member5_name">メンバー5の名前:</label>
+                    <input type="text" id="member5_name" name="member5_name">
+                    <br>
+
+                    <label for="member5_age">メンバー5の年齢:</label>
+                    <input type="number" id="member5_age" name="member5_age">
+                    <br>
+
+                    <label for="member5_personality">メンバー5の性格:</label>
+                    <select id="member5_personality" name="member5_personality">
+                        <option value="--">--</option>
+                        <option value="さみしがり">さみしがり</option>
+                        <option value="いじっぱり">いじっぱり</option>
+                        <option value="やんちゃ">やんちゃ</option>
+                        <option value="ゆうかん">ゆうかん</option>
+                        <option value="ずぶとい">ずぶとい</option>
+                        <option value="わんぱく">わんぱく</option>
+                        <option value="のうてんき">のうてんき</option>
+                        <option value="のんき">のんき</option>
+                        <option value="ひかえめ">ひかえめ</option>
+                        <option value="おっとり">おっとり</option>
+                        <option value="うっかりや">うっかりや</option>
+                        <option value="れいせい">れいせい</option>
+                        <option value="おだやか">おだやか</option>
+                        <option value="おとなしい">おとなしい</option>
+                        <option value="しんちょう">しんちょう</option>
+                        <option value="なまいき">なまいき</option>
+                        <option value="おくびょう">おくびょう</option>
+                        <option value="せっかち">せっかち</option>
+                        <option value="ようき">ようき</option>
+                        <option value="むじゃき">むじゃき</option>
+                        <option value="てれや">てれや</option>
+                        <option value="がんばりや">がんばりや</option>
+                        <option value="すなお">すなお</option>
+                        <option value="きまぐれ">きまぐれ</option>
+                        <option value="まじめ">まじめ</option>
+                    </select>
+                    <br>
+                </div>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="right-content">
+            <div id="image-container">
+                <img src="{{ url_for('static', filename='images/RoundTable.jpg') }}" alt="Round Table Image" id="RoundTable-image">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

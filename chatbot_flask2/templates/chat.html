@@ -5,25 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChatGPT Web App</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        .user-message {
-            background-color: #e6f7ff; /* ユーザー側の背景色 */
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-
-        .assistant-message {
-            background-color: #f0f0f0; /* ChatGPT側の背景色 */
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
 </head>
 <body>
     <h1>Welcome to ChatGPT Web App</h1>
