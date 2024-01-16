@@ -34,23 +34,17 @@
     {% if assistant_response %}
     <!-- ChatGPT側のメッセージ -->
     <div class="assistant-message">
-        <div class="chat2 clearfix">
-            <div class="logo"></div>
-            {% assign lines = assistant_response | newline_to_br | split: '<br />' %}
-            {% for line in lines %}
-                <div class="comment">
-                    <p><strong>ChatGPT:</strong> <span id="assistant-response">{{ line | strip_html }}</span></p>
+        {% for response_line in assistant_response.split('\n') %}
+            <div class="chat2 clearfix">
+                <div class="logo">
                 </div>
-            {% endfor %}
-        </div>
+                <div class="comment">
+                    <p><span id="assistant-response">{{ response_line }}</span></p>
+                </div>
+            </div>
+        {% endfor %}
     </div>
     {% endif %}
-
-    <script>
-        // JavaScriptで改行を<br>タグに変換
-        document.getElementById('user-input').innerHTML = document.getElementById('user-input').innerHTML.replace(/\n/g, '<br>');
-        document.getElementById('assistant-response').innerHTML = document.getElementById('assistant-response').innerHTML.replace(/\n/g, '<br>');
-    </script>
 
 </body>
 </html>
