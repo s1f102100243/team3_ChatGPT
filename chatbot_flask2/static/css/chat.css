@@ -68,13 +68,27 @@ body {
     
 .chat2 .comment{
     position:relative;
-    max-width:200px;
+    max-width:1100px;
     background:#fff;
     margin:0 0 0 8px;
     padding:8px;
     border:solid 1px rgb(150,150,150);
     border-radius:8px;
-}    
+    overflow:hidden;
+} 
+
+.chat .comment .logo {
+    float: left; /* 追加: ロゴを左に配置 */
+    margin-right: 8px; /* 追加: ロゴとコメントの間隔 */
+}
+
+.chat .comment p span br {
+    white-space: nowrap;
+    overflow: hidden;
+    display: none;
+}
+
+
 
 .clearfix{clear:both;}
 

@@ -35,16 +35,18 @@
     <!-- ChatGPT側のメッセージ -->
     <div class="assistant-message">
         {% for response_line in assistant_response.split('\n') %}
-            <div class="chat2 clearfix">
-                <div class="logo">
+            {% if response_line.strip() != '' %}
+                <div class="chat2 clearfix">
+                    <div class="logo">
+                    </div>
+                    <div class="comment">
+                        <p><strong>ChatGPT:</strong> <span id="assistant-response">{{ response_line }}</span></p>
+                    </div>
                 </div>
-                <div class="comment">
-                    <p><span id="assistant-response">{{ response_line }}</span></p>
-                </div>
-            </div>
+            {% endif %}
         {% endfor %}
     </div>
-    {% endif %}
+{% endif %}
 
 </body>
 </html>
