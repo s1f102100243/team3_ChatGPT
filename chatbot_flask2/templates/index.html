@@ -7,11 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChatGPT Web App</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </head>
 <body>
     <div class="container">
         <div class="left-content">
-            <h1>Welcome to ChatGPT Web App</h1>
+            <h1>AI conference room</h1>
+            <h2>まず話し合うテーマを入力し、<br>その後グループメンバーの性格を選択してください。</h2>
             <form action="/chat" method="post">
                 <!-- 新しい条件 -->
                 <input type="hidden" id="setting" name="setting" value="y">
@@ -45,10 +47,10 @@
         
                 <!-- 新しい条件ここまで -->
 
-                <label for="theme">話し合うテーマ</label>
+                <label for="theme">話し合うテーマ <br>ex:死刑制度について レジ袋は無料にするべきか</label>
                 <textarea id="theme" name="user_input" required></textarea>
                 <br>
-                <button type="submit">Submit</button>
+                <button type="submit">話し合いを始める！</button>
                 <br>
 
                 <label for="personality_1">1の性格</label>
@@ -361,6 +363,7 @@
                 </select>
                 <br>
             </form>
+            
         </div>
         <div class="right-content">
             <div id="image-container">
@@ -368,5 +371,6 @@
             </div>
         </div>
     </div>
+    
 </body>
 </html>
