@@ -1,0 +1,9 @@
+{% macro render_personality_select(personality_id) %}
+<label for="personality_{{ personality_id }}">Personality {{ personality_id }}:</label>
+<select id="personality_{{ personality_id }}" name="personality_{{ personality_id }}">
+    <option value="--">--</option>
+    {% for personality in personalities %}
+    <option value="{{ personality }}">{{ personality }}</option>
+    {% endfor %}
+</select><br>
+{% endmacro %}
